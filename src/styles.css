@@ -1,0 +1,60 @@
+body {
+  background-color: #e0bbe4;
+  font-family: "Ysabeau Office", sans-serif;
+  font-size: 24px;
+  color: #5d3f8a;
+  text-align: center;
+}
+.container {
+  max-width: 400px;
+}
+#search-form {
+  margin-top: 20px;
+  color: #5d3f8a;
+}
+
+#search-input {
+  padding: 5px;
+  color: #5d3f8a;
+}
+
+#search-button {
+  padding: 5px 10px;
+  border: none;
+  background-color: ;
+  color: #5d3f8a;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+#weather-icons {
+  justify-content: space-between;
+  size: 35px;
+}
+
+.weather-card {
+  flex-basis: 20%;
+}
+.weather-card .description {
+  float: right;
+  text-align: right;
+}
+
+#forecast-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.forecast-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
