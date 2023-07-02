@@ -5,6 +5,7 @@ const tempElements = document.querySelectorAll("[id^=temp]");
 const windElements = document.querySelectorAll("[id^=wind]");
 const descElements = document.querySelectorAll("[id^=desc]");
 const forecastContainer = document.getElementById("forecast-container");
+const weatherInfo = document.querySelector('.weather-info');
 let isCelsius = true;
 
 searchForm.addEventListener("submit", (e) => {
@@ -17,43 +18,61 @@ function getWeather(city) {
   const apiKey = "62231151ce343c4d68652e1617efc22f";
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const weather = data.weather[0];
+      const temperature = data.main.temp;
+      const humidity = data.main.humidity;
+      const windSpeed = data.wind.speed;
+       currentWeatherDesc.textContent = weather.description;
+      currentTemperature.textContent = `${temperature} °C`;
+      currentHumidity.textContent = `${humidity}%`;
+      currentWindSpeed.textContent = `${windSpeed} km/h`;
+
       const forecast = data.list.slice(0, 5);
-      forecast.forEach((item, index) => {
-        const weather = item.weather[0];
-        const iconUrl = `https://openweathermap.org/img/w/${weather.icon}.png`;
-
-        weatherIcons[index].src = iconUrl;
-        tempElements[index].textContent = `${item.main.temp} °C`;
-        windElements[index].textContent = `${item.wind.speed} m/s`;
-        descElements[index].textContent = weather.description;
-
-        const forecastCard = document.createElement("div");
-        forecastCard.className = "forecast-card";
-
-        const date = new Date(item.dt * 1000);
-        const day = date.toLocaleDateString("en-US", { weekday: "short" });
-        const weatherIcon = document.createElement("img");
-        weatherIcon.src = iconUrl;
-        weatherIcon.alt = "Weather Icon";
-        const weatherType = document.createElement("p");
-        weatherType.textContent = weather.description;
-        const forecastDate = document.createElement("p");
-        forecastDate.textContent = day;
-
-        forecastCard.appendChild(weatherIcon);
-        forecastCard.appendChild(weatherType);
-        forecastCard.appendChild(forecastDate);
-
-        forecastContainer.appendChild(forecastCard);
-      });
+      displayForecast(forecast);
     })
-    .catch((error) => {
-      console.error("Error:", error);
+    .catch(error => {
+      console.error('Error:', error);
     });
 }
+function displayForecast(forecast) {
+  const forecastCards = document.querySelectorAll('.weather-card');
+
+  forecastCards.forEach((card, index) => {
+    const forecastDate = card.querySelector('p:first-child');
+    const forecastTemp = card.querySelector('#temp-' + (index + 1));
+    const forecastWind = card.querySelector('#wind-' + (index + 1));
+    const forecastDesc = card.querySelector('#desc-' + (index + 1));
+
+    const { dt_txt, main, weather, wind } = forecast[index];
+    const iconUrl = `http://openweathermap.org/img/w/${weather[0].icon}.png`;
+
+    forecastDate.textContent = getDayOfWeek(dt_txt);
+    forecastTemp.textContent = `Temperature: ${main.temp} °C`;
+    forecastWind.textContent = `Wind Speed: ${wind.speed} km/h`;
+    forecastDesc.textContent = `Weather: ${weather[0].description}`;
+
+    const forecastIcon = document.createElement('img');
+    forecastIcon.src = iconUrl;
+    forecastIcon.alt = 'Weather Icon';
+
+    card.insertBefore(forecastIcon, forecastDate);
+  });
+}
+
+function getDayOfWeek(dateStr) {
+  const date = new Date(dateStr);
+  const options = { weekday: 'long' };
+  return new Intl.DateTimeFormat('en-US', options).format(date);
+}
+  
+
+        
+
+        
+
 
 function formatDate(timestamp) {
   let date = new Date(timestamp);
@@ -143,4 +162,27 @@ function displayCelsiusTemperature() {
     });
     isCelsius = true;
   }
+}
+
+fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const weather = data.weather[0];
+      const temperature = data.main.temp;
+      const humidity = data.main.humidity;
+      const windSpeed = data.wind.speed;
+
+      const weatherDesc = document.querySelector('.weather-description');
+      const temperatureElement = document.querySelector('.temperature');
+      const humidityElement = document.querySelector('.humidity');
+      const windSpeedElement = document.querySelector('.wind-speed');
+
+      weatherDesc.textContent = weather.description;
+      temperatureElement.textContent = `${temperature} °C`;
+      humidityElement.textContent = `${humidity}%`;
+      windSpeedElement.textContent = `${windSpeed} km/h`;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 }
