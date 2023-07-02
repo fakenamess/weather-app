@@ -5,6 +5,8 @@ const currentWeatherDesc = document.querySelector('.weather-description');
 const currentTemperature = document.querySelector('.temperature');
 const currentHumidity = document.querySelector('.humidity');
 const currentWindSpeed = document.querySelector('.wind-speed');
+const tempElements = document.querySelectorAll(".temperature");
+
 
 const forecastContainer = document.getElementById("forecast-container");
 const weatherInfo = document.querySelector('.weather-info');
@@ -96,14 +98,13 @@ function formatDate(timestamp) {
 }
 
 function displayTemperature(response) {
-  let temperatureElement = document.querySelector("#temperature");
+  let temperatureElement = document.querySelector(".temperature");
   let cityElement = document.querySelector("#city");
-  let descriptionElement = document.querySelector("#description");
-  let humidityElement = document.querySelector("#humidity");
-  let windElement = document.querySelector("#wind");
+  let descriptionElement = document.querySelector(".weather-description");
+  let humidityElement = document.querySelector(".humidity");
+  let windElement = document.querySelector(".wind-speed");
   let dateElement = document.querySelector("#date");
-  let iconElement = document.querySelector("#icon");
-
+}
   let celsiusTemperature = response.data.main.temp;
 
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
