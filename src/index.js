@@ -27,7 +27,7 @@ function getWeather(city) {
       const temperature = data.main.temp;
       const humidity = data.main.humidity;
       const windSpeed = data.wind.speed;
-       currentWeatherDesc.textContent = weather.description;
+      currentWeatherDesc.textContent = weather.description;
       currentTemperature.textContent = `${temperature} °C`;
       currentHumidity.textContent = `${humidity}%`;
       currentWindSpeed.textContent = `${windSpeed} km/h`;
@@ -71,11 +71,6 @@ function getDayOfWeek(dateStr) {
 }
   
 
-        
-
-        
-
-
 function formatDate(timestamp) {
   let date = new Date(timestamp);
   let hours = date.getHours();
@@ -117,12 +112,7 @@ function displayTemperature(response) {
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed * 3.6);
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
-  iconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  iconElement.setAttribute("alt", response.data.weather[0].description);
-}
+ 
 
 function search(city) {
   let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
@@ -167,24 +157,20 @@ function displayCelsiusTemperature() {
 }
 
 fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      const weather = data.weather[0];
-      const temperature = data.main.temp;
-      const humidity = data.main.humidity;
-      const windSpeed = data.wind.speed;
+  .then(response => response.json())
+  .then(data => {
+    const weather = data.weather[0];
+    const temperature = data.main.temp;
+    const humidity = data.main.humidity;
+    const windSpeed = data.wind.speed;
 
-      const weatherDesc = document.querySelector('.weather-description');
-      const temperatureElement = document.querySelector('.temperature');
-      const humidityElement = document.querySelector('.humidity');
-      const windSpeedElement = document.querySelector('.wind-speed');
+    const weatherDesc = document.querySelector('.weather-description');
+    const temperatureElement = document.querySelector('.temperature');
+    const humidityElement = document.querySelector('.humidity');
+    const windSpeedElement = document.querySelector('.wind-speed');
 
-      weatherDesc.textContent = weather.description;
-      temperatureElement.textContent = `${temperature} °C`;
-      humidityElement.textContent = `${humidity}%`;
-      windSpeedElement.textContent = `${windSpeed} km/h`;
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-}
+    weatherDesc.textContent = weather.description;
+    temperatureElement.textContent = `${temperature} °C`;
+    humidityElement.textContent = `${humidity}%`;
+    windSpeedElement.textContent = `${windSpeed} km/h`;
+  });
