@@ -1,9 +1,11 @@
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
 const weatherIcons = document.querySelectorAll("#weather-icon");
-const tempElements = document.querySelectorAll("[id^=temp]");
-const windElements = document.querySelectorAll("[id^=wind]");
-const descElements = document.querySelectorAll("[id^=desc]");
+const currentWeatherDesc = document.querySelector('.weather-description');
+const currentTemperature = document.querySelector('.temperature');
+const currentHumidity = document.querySelector('.humidity');
+const currentWindSpeed = document.querySelector('.wind-speed');
+
 const forecastContainer = document.getElementById("forecast-container");
 const weatherInfo = document.querySelector('.weather-info');
 let isCelsius = true;
